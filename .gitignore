@@ -5,7 +5,9 @@ rag/logs/
 bm25_index/
 chroma_db/
 
+.grail/
 __pycache__/
+src/grail_re.egg-info
 
 pandocs/
 rgbds/
