@@ -1,8 +1,0 @@
-{
-  "chunks_file": "/home/vince/assistant-workspace-opencode/grail/rag/docs/chunks/grail_reference_chunks.jsonl",
-  "chroma_dir": "/home/vince/assistant-workspace-opencode/grail/rag/chroma_db",
-  "bm25_dir": "/home/vince/assistant-workspace-opencode/grail/rag/bm25_index",
-  "collection": "grail_reference_docs",
-  "embed_model": "BAAI/bge-small-en-v1.5",
-  "node_count": 582
-}

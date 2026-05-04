@@ -12,3 +12,5 @@ rgbds/
 
 *.sqlite3
 *.db
+
+rag_manifest.json
