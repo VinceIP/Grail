@@ -1,0 +1,14 @@
+benchmarks/
+logs/
+rag/logs/
+.venv/
+bm25_index/
+chroma_db/
+
+__pycache__/
+
+pandocs/
+rgbds/
+
+*.sqlite3
+*.db
