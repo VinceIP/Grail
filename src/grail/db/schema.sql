@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS symbols (
     file_path TEXT NOT NULL,
     line_start INTEGER,
     line_end INTEGER,
-    status TEXT NOT NULL DEFAULT 'indexed',
+    symbol_status TEXT NOT NULL DEFAULT 'indexed',
     human_verified INTEGER NOT NULL DEFAULT 0,
     notes TEXT
 );
@@ -36,18 +36,18 @@ CREATE TABLE IF NOT EXISTS claims (
     claim TEXT NOT NULL,
     evidence TEXT,
     confidence TEXT NOT NULL DEFAULT 'unknown',
-    status TEXT NOT NULL DEFAULT 'proposed',
+    claim_status TEXT NOT NULL DEFAULT 'proposed',
 
     FOREIGN KEY (symbol_id) REFERENCES symbols(id) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_symbols_name ON symbols(name);
 CREATE INDEX IF NOT EXISTS idx_symbols_type ON symbols(type);
-CREATE INDEX IF NOT EXISTS idx_symbols_status ON symbols(status);
+CREATE INDEX IF NOT EXISTS idx_symbols_status ON symbols(symbol_status);
 
 CREATE INDEX IF NOT EXISTS idx_code_refs_from ON code_refs(from_symbol_id);
 CREATE INDEX IF NOT EXISTS idx_code_refs_to ON code_refs(to_symbol_id);
 CREATE INDEX IF NOT EXISTS idx_code_refs_target ON code_refs(target_text);
 
 CREATE INDEX IF NOT EXISTS idx_claims_symbol ON claims(symbol_id);
-CREATE INDEX IF NOT EXISTS idx_claims_status ON claims(status);
+CREATE INDEX IF NOT EXISTS idx_claims_status ON claims(claim_status);

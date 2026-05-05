@@ -6,6 +6,7 @@ from grail.db.info import get_db_info
 from grail.db.init import DEFAULT_DB_PATH, init_db
 from grail.project.info import get_project_info
 from grail.project.init import init_project
+from grail.project.index import index_project
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -101,6 +102,26 @@ def add_project_commands(subcommands: argparse._SubParsersAction) -> None:
         type=Path,
         default=Path("."),
         help="Start path for project discovery. Default: current directory.",
+    )
+    
+    # grail project indexer
+    index_parser = project_subcommands.add_parser(
+        "index",
+        help="Index assembly symbols for the active GRAIL project",
+    )
+
+    index_parser.add_argument(
+        "--root",
+        type=Path,
+        default=Path("."),
+        help="Start path for project discovery. Default: current directory.",
+    )
+
+    index_parser.add_argument(
+        "-y",
+        "--yes",
+        action="store_true",
+        help="Run without asking for confirmation.",
     )
 
 
@@ -202,7 +223,18 @@ def handle_project_command(args: argparse.Namespace) -> None:
             print("Database exists: yes")
         else:
             print("Database exists: no")
+        return
+    
+    if args.project_command == "index":
+        summary = index_project(
+            start_path=args.root,
+            assume_yes=args.yes,
+        )
 
+        print("Index complete.")
+        print(f"ASM files scanned: {summary.asm_files_seen}")
+        print(f"Symbols found: {summary.symbols_seen}")
+        print(f"Symbols inserted/updated: {summary.symbols_inserted_or_updated}")
         return
 
     raise ValueError(f"Unknown project command: {args.project_command}")
